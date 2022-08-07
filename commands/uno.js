@@ -56,9 +56,10 @@ module.exports = {
                 userReactions.forEach(user => peopleInGame.push(user.id));
                 interaction.followUp(`The following users are in: ${peopleInGame}`)
             } else {
-                await i.deferUpdate(); //defer it, reset it.
+                //await i.deferUpdate(); //defer it, reset it.
                 
                 if(userReactions.size < 2) await i.update('Not enough people have joined the game!')
+                else await i.deferUpdate();
             }
             
         });
