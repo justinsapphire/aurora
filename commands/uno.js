@@ -45,6 +45,11 @@ module.exports = {
             let peopleInGame = [];
             const userReactions = await message.reactions.cache.get('✅').users.fetch();
             console.log(userReactions);
+            console.log(interaction.client.user.id);
+            userReactions.forEach(user => {
+                console.log(user.id)
+                console.log(user.bot)
+            })
         });
 
         collector.on('end', async collected => {
