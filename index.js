@@ -5,7 +5,9 @@ const { Client, Collection, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, 
 const token = process.env.TOKEN;
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
+});
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, 'commands');
