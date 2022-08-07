@@ -33,7 +33,7 @@ module.exports = {
         collector.on('collect', async i => {
             // Start is clicked
 
-            const userReactions = await message.reactions.cache.get('✅').users.fetch();
+            let userReactions = await message.reactions.cache.get('✅').users.fetch();
             userReactions.forEach(user => console.log(user))
             userReactions.forEach(user => console.log(user.bot))
             
