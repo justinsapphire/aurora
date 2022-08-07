@@ -33,23 +33,30 @@ module.exports = {
         collector.on('collect', async i => {
             // Start is clicked
 
-            //Game cannot start cases:
-
-            //Game is starting cases:
-            startCheck = true;
-            await i.update({
-                content: 'The Game has Started!',
-                ephemeral: true,
-                components: []
-            });
-            let peopleInGame = [];
             const userReactions = await message.reactions.cache.get('✅').users.fetch();
-            console.log(userReactions);
-            console.log(interaction.client.user.id);
-            userReactions.forEach(user => {
-                console.log(user.id)
-                console.log(user.bot)
-            })
+            userReactions.filter(user => !user.bot)
+
+            //Game cannot start cases:
+            //if less than 2 players
+            console.log(userReactions.length);
+            //if game is already happening in this channel/with these people?
+
+            if(userReactions.length >= 2) {
+                //Game is starting cases: (2+ people)
+                startCheck = true;
+                await i.update({
+                    content: 'The Game has Started!',
+                    ephemeral: true,
+                    components: []
+                });
+                
+                let peopleInGame = [];
+                userReactions.forEach(user => peopleInGame.push(user.id));
+                interaction.followUp(`The following users are in: ${peopleInGame}`)
+            } else {
+                await i.deferUpdate(); //defer it, reset it.
+            }
+            
         });
 
         collector.on('end', async collected => {
