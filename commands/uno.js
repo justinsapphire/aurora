@@ -36,12 +36,18 @@ module.exports = {
             const userReactions = await message.reactions.cache.get('✅').users.fetch();
             userReactions.forEach(user => console.log(user))
             userReactions.forEach(user => console.log(user.bot))
-            userReactions.filter(user => !user.bot)
+            userReactions.filter(user => {
+                if(user.bot) return false;
+                else return true;
+            })
+            console.log(userReactions.size + " before");
+            userReactions.filter(user => user.bot === false)
 
             //Game cannot start cases:
             //if less than 2 players
             console.log(userReactions.size);
             //if game is already happening in this channel/with these people?
+
 
             if(userReactions.size >= 2) {
                 //Game is starting cases: (2+ people)
