@@ -3,7 +3,7 @@ module.exports = {
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
         // Event Handler for Button Click!
-
-	    console.log(interaction);
+		// Better handled within the command using collections.
+	    //console.log(interaction);
 	},
 };

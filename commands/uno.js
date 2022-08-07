@@ -43,7 +43,7 @@ module.exports = {
                 components: []
             });
             let peopleInGame = [];
-            const userReactions = message.reactions.cache.filter(reaction => !reaction.users.cache.has(client.user.id));
+            const userReactions = message.reactions.cache.filter(reaction => !reaction.users.cache.has(interaction.client.user.id));
             console.log(userReactions);
         });
 
