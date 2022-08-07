@@ -38,10 +38,10 @@ module.exports = {
 
             //Game cannot start cases:
             //if less than 2 players
-            console.log(userReactions.length);
+            console.log(userReactions.size);
             //if game is already happening in this channel/with these people?
 
-            if(userReactions.length >= 2) {
+            if(userReactions.size >= 2) {
                 //Game is starting cases: (2+ people)
                 startCheck = true;
                 await i.update({
@@ -55,6 +55,8 @@ module.exports = {
                 interaction.followUp(`The following users are in: ${peopleInGame}`)
             } else {
                 await i.deferUpdate(); //defer it, reset it.
+                
+                if(userReactions.size < 2) await i.update('Not enough people have joined the game!')
             }
             
         });
