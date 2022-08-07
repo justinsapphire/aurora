@@ -36,13 +36,11 @@ module.exports = {
             const userReactions = await message.reactions.cache.get('✅').users.fetch();
             userReactions.forEach(user => console.log(user))
             userReactions.forEach(user => console.log(user.bot))
-            userReactions.filter(user => {
-                if(user.bot) return false;
-                else return true;
-            })
-            console.log(userReactions.size + " before");
-            userReactions.filter(user => user.bot === false)
-
+            
+            userReactions = userReactions.filter(user => user.bot === false)
+            //console.log(userReactions.size + " before");
+            //userReactions.map(user => user.id);
+            
             //Game cannot start cases:
             //if less than 2 players
             console.log(userReactions.size);
