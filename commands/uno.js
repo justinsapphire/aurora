@@ -27,13 +27,14 @@ module.exports = {
             fetchReply: true
         })
 
-        const collector = hostMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+        const collector = hostMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 30000 });
         let startCheck = false;
 
         collector.on('collect', async i => {
             // Start is clicked
 
             const userReactions = await message.reactions.cache.get('✅').users.fetch();
+            userReactions.forEach(console.log(user.bot))
             userReactions.filter(user => !user.bot)
 
             //Game cannot start cases:
