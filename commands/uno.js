@@ -33,19 +33,14 @@ module.exports = {
         collector.on('collect', async i => {
             // Start is clicked
 
+            //get all humans who reacted with check
             let userReactions = await message.reactions.cache.get('✅').users.fetch();
-            userReactions.forEach(user => console.log(user))
-            userReactions.forEach(user => console.log(user.bot))
-            
             userReactions = userReactions.filter(user => user.bot === false)
-            //console.log(userReactions.size + " before");
-            //userReactions.map(user => user.id);
+
             
             //Game cannot start cases:
             //if less than 2 players
-            console.log(userReactions.size);
             //if game is already happening in this channel/with these people?
-
 
             if(userReactions.size >= 2) {
                 //Game is starting cases: (2+ people)
@@ -58,7 +53,7 @@ module.exports = {
                 
                 let peopleInGame = [];
                 userReactions.forEach(user => peopleInGame.push(user.id));
-                interaction.followUp(`The following users are in: ${peopleInGame}`)
+                await interaction.editReply(`The following users are in: ${peopleInGame}`)
             } else {
                 //await i.deferUpdate(); //defer it, reset it.
                 
