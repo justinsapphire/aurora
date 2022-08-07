@@ -34,8 +34,9 @@ module.exports = {
             // Start is clicked
 
             const userReactions = await message.reactions.cache.get('✅').users.fetch();
-            userReactions.forEach(console.log(user.bot))
-            userReactions.filter(user => !user.bot)
+            userReactions.forEach(user => console.log(user.get('bot')))
+            userReactions.forEach(user => console.log(user.bot))
+            userReactions.filter(user => !user.get('bot'))
 
             //Game cannot start cases:
             //if less than 2 players
