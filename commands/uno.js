@@ -30,7 +30,7 @@ module.exports = {
         const collector = hostMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
         let startCheck = false;
 
-        collector.on('collect', i => {
+        collector.on('collect', async i => {
             // Start is clicked
 
             //Game cannot start cases:
@@ -47,14 +47,9 @@ module.exports = {
             console.log(userReactions);
         });
 
-        collector.on('end', collected => {
+        collector.on('end', async collected => {
             if(!startCheck) {
                 //Timed out
-                await i.update({
-                    content: 'The game has timed out.',
-                    ephemeral: true,
-                    components: []
-                })
                 await interaction.editReply('The game has timed out.')
             }
         });
