@@ -2,7 +2,7 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "Aurora",
+  "name": "aurora",
   "version": "0.0.1",
   "description": "A fun bot, with lots of cool commands for a fun time!",
   "main": "index.js",
@@ -10,9 +10,10 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "@discordjs/rest": "^1.0.1",
     "discord.js": "^14.1.2",
-    "@discordjs/rest": "^1.0.1"
+    "express": "^4.17.1",
+    "pg": "^8.7.3"
   },
   "engines": {
     "node": "16.x"
@@ -25,5 +26,6 @@
     "node",
     "glitch",
     "express"
-  ]
+  ],
+  "author": "Sapphire7x"
 }

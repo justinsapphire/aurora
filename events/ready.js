@@ -1,7 +1,21 @@
+const { Pool, Client } = require('pg');
+const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({
+  connectionString,
+})
+
 module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
+		;(async () => {
+            await pool.query('CREATE TABLE IF NOT EXISTS games (channelid INT(255) NOT NULL, gamedata VARCHAR(max) NOT NULL, PRIMARY KEY (channelid))')
+        })().catch(err =>
+            setImmediate(() => {
+				console.log("error");
+                throw err
+            })
+        )
 		console.log(`Ready! Logged in as ${client.user.tag}`);
 	},
 };

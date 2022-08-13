@@ -1,1 +1,29 @@
-{}
+{
+    "games": {
+        "channelid": {
+            "deck": [],
+            "played": [],
+            "users": {
+                "userid": {
+                    "username": "",
+                    "hand": [],
+                    "turnsPlayed": 0,
+                    "plusFours": 0,
+                    "unoCalls": 0
+                }
+            },
+            "turns": 0,
+            "activeturn": 0,
+            "direction": "forward",
+            "order": []
+        }
+    },
+    "stats": {
+        "userid": {
+            "wins": 0,
+            "plusFours": 0,
+            "turnsPlayed": 0,
+            "unoCalls": 0
+        }
+    }
+}
