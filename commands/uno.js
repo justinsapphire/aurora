@@ -7,11 +7,7 @@ await pg.connect();
 const res = await pg.query('SELECT $1::text as message', ['Hello world!'])
 console.log(res.rows[0].message) // Hello world!
 await client.end()*/
-const { Pool, Client } = require('pg');
-const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({
-  connectionString,
-})
+
 /*pool.query('SELECT NOW()', (err, res) => {
   console.log(err, res)
   pool.end()
@@ -31,7 +27,11 @@ module.exports = {
 		.setName('uno')
 		.setDescription('Start an UNO game! (Not functional yet)'),
 	async execute(interaction) {
-        
+        const { Pool, Client } = require('pg');
+        const connectionString = process.env.DATABASE_URL;
+        const pool = new Pool({
+        connectionString,
+        })
         
         let channel = String(interaction.channel.id);
         console.log(channel);
