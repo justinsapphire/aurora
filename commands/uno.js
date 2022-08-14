@@ -195,7 +195,7 @@ module.exports = {
                     [Number(channel), gameObject], (err, result) => {
         
                         done(err);
-                        console.log(result.rowCount);
+                        console.log("inserted");
                     });
                 });
                 //uno.games[channel] = gameObject;
