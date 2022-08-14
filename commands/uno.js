@@ -67,8 +67,21 @@ module.exports = {
         collector.on('collect', async i => {
             // Start is clicked
             let gameExist = false;
-            ;(async () => {
-                const { rows } = await pool.query('SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)', [Number(channel)])
+            pool.connect( (err, client, done) => {
+                client.query('SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)', [Number(channel)], (err, result) => {
+                    
+                    //disconnent from database on error
+                    done(err);
+                    if(result.rowCount == 0) {
+                        gameExist = false;
+                    } else {
+                        gameExist = true;
+                    }
+                    console.log("hopefully this fixes it somehow")
+                });
+            });
+            /*;(async () => {
+                const { rows } = await 
                 console.log(rows);
                 gameExist = rows[0] ? false : true
                 console.log(gameExist);
@@ -76,7 +89,7 @@ module.exports = {
                 setImmediate(() => {
                   throw err
                 })
-              )
+              )*/
             if(gameExist) { //If a game is already happening in the channel
                 startCheck = true;
                 await interaction.editReply(`There is already an active game in this channel.`)

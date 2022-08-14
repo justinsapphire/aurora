@@ -8,14 +8,6 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
-		/*;(async () => {
-            await pool.query('CREATE TABLE IF NOT EXISTS games (channelid INT(255) NOT NULL, gamedata VARCHAR(max) NOT NULL, PRIMARY KEY (channelid))')
-        })().catch(err =>
-            setImmediate(() => {
-				console.log("error");
-                throw err
-            })
-        )*/
         pool.connect( (err, client, done) => {
             client.query('CREATE TABLE IF NOT EXISTS GAMES ( \
                 channelid INT(255) primary key, \
