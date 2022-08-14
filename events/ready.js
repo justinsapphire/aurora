@@ -1,8 +1,4 @@
-const { Pool, Client } = require('pg');
-const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({
-  connectionString,
-})
+let pool = require('../pool.js');
 
 module.exports = {
 	name: 'ready',

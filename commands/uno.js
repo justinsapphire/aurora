@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 const fs = require('node:fs');
+let pool = require('../pool.js');
 //let uno = require('../uno.json'); //change this to the postgresql
 /*const { Pg } = require('pg');
 const pg = new Pg();
@@ -27,11 +28,6 @@ module.exports = {
 		.setName('uno')
 		.setDescription('Start an UNO game! (Not functional yet)'),
 	async execute(interaction) {
-        const { Pool, Client } = require('pg');
-        const connectionString = process.env.DATABASE_URL;
-        const pool = new Pool({
-        connectionString,
-        })
         
         let channel = String(interaction.channel.id);
         console.log(channel);
