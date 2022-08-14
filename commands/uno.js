@@ -72,10 +72,10 @@ module.exports = {
                     
                     //disconnent from database on error
                     done(err);
-                    if(result.rowCount == 0) {
-                        gameExist = false;
-                    } else {
+                    if(result && result.rowCount > 0) {
                         gameExist = true;
+                    } else {
+                        gameExist = false;
                     }
                     console.log("hopefully this fixes it somehow")
                 });
