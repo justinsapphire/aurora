@@ -68,7 +68,7 @@ module.exports = {
             // Start is clicked
             let gameExist = false;
             ;(async () => {
-                const { rows } = await pool.query('SELECT channelid FROM "games" WHERE EXISTS (SELECT channelid FROM "games" WHERE channelid = $1)', [Number(channel)])
+                const { rows } = await pool.query('SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)', [Number(channel)])
                 console.log(rows);
                 gameExist = rows[0] ? false : true
                 console.log(gameExist);
@@ -178,7 +178,7 @@ module.exports = {
                 console.log(gameObject);
                 pool.connect( (err, client, done) => {
                     //insert the game into database
-                    client.query('INSERT INTO "games" (channelid, gamedata) VALUES ($1, $2)',
+                    client.query('INSERT INTO GAMES (channelid, gamedata) VALUES ($1, $2)',
                     [Number(channel), gameObject], (err, result) => {
         
                         done(err);

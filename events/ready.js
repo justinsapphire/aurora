@@ -17,9 +17,10 @@ module.exports = {
             })
         )*/
         pool.connect( (err, client, done) => {
-            client.query('create table if not exists "games" ( \
+            client.query('CREATE TABLE IF NOT EXISTS GAMES ( \
                 channelid INT(255) primary key, \
                 gamedata VARCHAR(MAX))', (err, result) => {
+                    console.log("well it hadn't existed");
                     //disconnent from database on error
                     done(err);
             });
