@@ -68,8 +68,9 @@ module.exports = {
             // Start is clicked
             let gameExist = false;
             ;(async () => {
-                const { rows } = await pool.query('SELECT IF(SELECT * FROM games WHERE channelid = $1, 1, 0)', [Number(channel)])
-                gameExist = rows[0] == 0 ? false : true
+                const { rows } = await pool.query('SELECT channelid FROM games WHERE EXISTS (SELECT channelid FROM games WHERE channelid = $1)', [Number(channel)])
+                console.log(rows);
+                gameExist = rows[0] ? false : true
                 console.log(gameExist);
               })().catch(err =>
                 setImmediate(() => {
