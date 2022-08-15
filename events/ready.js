@@ -7,9 +7,7 @@ module.exports = {
         let clients = await pool.connect()
         let result = await clients.query({
             rowMode: 'array',
-            text: 'CREATE TABLE IF NOT EXISTS GAMES ( \
-                channelid INT(255) primary key, \
-                gamedata VARCHAR(MAX))'
+            text: 'CREATE TABLE IF NOT EXISTS GAMES (channelid INT(255) primary key, gamedata VARCHAR(MAX))'
         })
         console.log(result ? result.rows : "no result") // [ [ 1, 2 ] ]
         await clients.end()
