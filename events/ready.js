@@ -6,9 +6,9 @@ module.exports = {
 	execute(client) {
         pool.connect( (err, clients, done) => {
             clients.connection.on('message', console.log)
-            clients.query('CREATE TABLE IF NOT EXISTS GAMES ( \
+            clients.query('CREATE TABLE IF NOT EXISTS GAMES(\
                 channelid INT(255) primary key, \
-                gamedata VARCHAR(MAX))', (err, result) => {
+                gamedata VARCHAR(MAX));', (err, result) => {
                     console.log(result ? result : "no result?");
                     //disconnent from database on error
                     done(err);

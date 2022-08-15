@@ -66,10 +66,10 @@ module.exports = {
             let client = await pool.connect()
             let result = await client.query({
                 rowMode: 'array',
-                text: 'SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)',
+                text: 'SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1);',
                 values: [Number(channel)]
             })
-            console.log(result.rows) // [ [ 1, 2 ] ]
+            console.log(result.rows.length) // [ [ 1, 2 ] ]
             console.log(result);
             await client.end()
             //pool.connect( (err, client, done) => {
@@ -79,7 +79,7 @@ module.exports = {
                     // 
                     //disconnent from database on error
                     //done(err);
-                    if(result && result.rowCount > 0) {
+                    if(result && result.rows.length !== 0) {
                         gameExist = true;
                     } else {
                         gameExist = false;
@@ -199,7 +199,7 @@ module.exports = {
                 client = await pool.connect()
                 result = await client.query({
                     rowMode: 'array',
-                    text: 'INSERT INTO GAMES (channelid, gamedata) VALUES ($1, $2)',
+                    text: 'INSERT INTO GAMES (channelid, gamedata) VALUES ($1, $2);',
                     values: [Number(channel), gameObject]
                 })
                 console.log(result ? result.rows : "no result") // [ [ 1, 2 ] ]
