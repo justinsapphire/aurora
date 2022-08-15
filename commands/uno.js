@@ -63,19 +63,30 @@ module.exports = {
         collector.on('collect', async i => {
             // Start is clicked
             let gameExist = false;
-            pool.connect( (err, client, done) => {
-                client.query('SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)', [Number(channel)], (err, result) => {
-                    
+            let client = await pool.connect()
+            let result = await client.query({
+                rowMode: 'array',
+                text: 'SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)',
+                values: [Number(channel)]
+            })
+            console.log(result.rows) // [ [ 1, 2 ] ]
+            console.log(result);
+            await client.end()
+            //pool.connect( (err, client, done) => {
+                //client.query('SELECT channelid FROM GAMES WHERE EXISTS (SELECT channelid FROM GAMES WHERE channelid = $1)', [Number(channel)], (err, result) => {
+                    //try const { rows } = query and seeing if rows.rowCount > 0
+                    //like this: (i.e. change pool.connect)
+                    // 
                     //disconnent from database on error
-                    done(err);
+                    //done(err);
                     if(result && result.rowCount > 0) {
                         gameExist = true;
                     } else {
                         gameExist = false;
                     }
-                    console.log("hopefully this fixes it somehow")
-                });
-            });
+                    //console.log("hopefully this fixes it somehow")
+                //});
+            //});
             /*;(async () => {
                 const { rows } = await 
                 console.log(rows);
@@ -185,7 +196,15 @@ module.exports = {
                 })
                 gameObject = JSON.stringify(gameObject);
                 console.log(gameObject);
-                pool.connect( (err, client, done) => {
+                client = await pool.connect()
+                result = await client.query({
+                    rowMode: 'array',
+                    text: 'INSERT INTO GAMES (channelid, gamedata) VALUES ($1, $2)',
+                    values: [Number(channel), gameObject]
+                })
+                console.log(result ? result.rows : "no result") // [ [ 1, 2 ] ]
+                await client.end()
+                /*pool.connect( (err, client, done) => { //convert this to async await?
                     //insert the game into database
                     client.query('INSERT INTO GAMES (channelid, gamedata) VALUES ($1, $2)',
                     [Number(channel), gameObject], (err, result) => {
@@ -193,7 +212,7 @@ module.exports = {
                         done(err);
                         console.log("inserted");
                     });
-                });
+                });*/
                 //uno.games[channel] = gameObject;
 
                 /* fs.writeFile('userdata.json', JSON.stringify(userData), (err) => {

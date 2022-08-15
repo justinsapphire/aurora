@@ -4,15 +4,16 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
-        pool.connect( (err, client, done) => {
-            client.query('CREATE TABLE IF NOT EXISTS GAMES ( \
+        let clients = await pool.connect()
+        let result = await client.query({
+            rowMode: 'array',
+            text: 'CREATE TABLE IF NOT EXISTS GAMES ( \
                 channelid INT(255) primary key, \
-                gamedata VARCHAR(MAX))', (err, result) => {
-                    console.log("well it hadn't existed");
-                    //disconnent from database on error
-                    done(err);
-            });
-        });
+                gamedata VARCHAR(MAX))'
+        })
+        console.log(result ? result.rows : "no result") // [ [ 1, 2 ] ]
+        await client.end()
+        
 		console.log(`Ready! Logged in as ${client.user.tag}`);
 	},
 };
